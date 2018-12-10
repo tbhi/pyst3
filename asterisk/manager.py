@@ -120,7 +120,7 @@ class ManagerMsg(object):
                 # if header is ChanVariable it can have more that one value
                 # we store the variable in a dictionary parsed
                 if 'ChanVariable' in k:
-                    if not self.headers.has_key('ChanVariable'):
+                    if 'ChanVariable' not in self.headers:
                         self.headers['ChanVariable']={}
                     name, value = (x.strip() for x in v.split('=',1))
                     self.headers['ChanVariable'][name]=value
@@ -267,7 +267,7 @@ class Manager(object):
         clist = []
 
         # generate the command
-        for key, value in cdict.items():
+        for key, value in list(cdict.items()):
             if isinstance(value, list):
                 for item in value:
                     item = tuple([key, item])
@@ -428,7 +428,7 @@ class Manager(object):
                 elif message.has_header('Response'):
                     self._response_queue.put(message)
                 else:
-                    print('No clue what we got\n%s' % message.data)
+                    print(('No clue what we got\n%s' % message.data))
         finally:
             # wait for our data receiving thread to exit
             t.join()
@@ -600,7 +600,7 @@ class Manager(object):
         # if variables: cdict['Variable'] = '|'.join(['='.join((str(key), str(value))) for key, value in variables.items()])
         if variables:
             cdict['Variable'] = ['='.join(
-                (str(key), str(value))) for key, value in variables.items()]
+                (str(key), str(value))) for key, value in list(variables.items())]
 
         response = self.send_action(cdict)
 

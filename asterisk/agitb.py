@@ -100,7 +100,7 @@ def text(eparams, context=5):
     import pydoc
 
     etype, evalue, etb = eparams
-    if isinstance(etype, types.ClassType):
+    if isinstance(etype, type):
         etype = etype.__name__
     pyver = 'Python ' + sys.version.split()[0] + ': ' + sys.executable
     date = time.ctime(time.time())
