@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-# vim: set et sw=4 fenc=utf-8: 
+# vim: set et sw=4 fenc=utf-8:
 """
 .. module:: agi
-   :synopsis: This module contains functions and classes to implment AGI scripts in python. 
-   
+   :synopsis: This module contains functions and classes to implment AGI scripts in python.
+
 pyvr
 
 {'agi_callerid' : 'mars.putland.int',
@@ -82,7 +82,7 @@ class AGIUsageError(AGIError):
 class AGIInvalidCommand(AGIError):
     pass
 
-        
+
 class AGI:
     """
     This class encapsulates communication between Asterisk an a python script.
@@ -144,7 +144,6 @@ class AGI:
 
     def execute(self, command, *args):
         self.test_hangup()
-
         try:
             self.send_command(command, *args)
             return self.get_result()
@@ -164,7 +163,7 @@ class AGI:
             command += '\n'
         self.stderr.write('    COMMAND: %s' % command)
         if PY3:
-            self.stdout.write(command.encode('utf8'))
+            self.stdout.write(command)
         else:
             self.stdout.write(command)
         self.stdout.flush()
