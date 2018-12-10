@@ -1,3 +1,5 @@
+THIS IS STILL VERY MUCH A WORK IN PROGRESS
+
 pyst3: A Python(3) Interface to Asterisk
 =====================================
 
