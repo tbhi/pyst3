@@ -103,21 +103,22 @@ class AGI:
         self._get_agi_env()
 
     def _get_agi_env(self):
-        while 1:
-            line = self.stdin.readline().strip()
+        line = None
+        while line != '':
+            line = sys.stdin.readline().strip()
             if PY3:
                 if type(line) is bytes: line = line.decode('utf8')
-            self.stderr.write('ENV LINE: ')
-            self.stderr.write(line)
-            self.stderr.write('\n')
-            if line == '':
-                #blank line signals end
-                break
-            key, data = line.split(':')[0], ':'.join(line.split(':')[1:])
-            key = key.strip()
-            data = data.strip()
-            if key != '':
-                self.env[key] = data
+            try:
+                key, data = line.split(':')
+                key = key.strip()
+                data = data.strip()
+
+                if 'agi_' != key[:4]:
+                    continue
+
+                env[key] = data
+           except AttributeError:
+                pass
         self.stderr.write('class AGI: self.env = ')
         self.stderr.write(pprint.pformat(self.env))
         self.stderr.write('\n')
